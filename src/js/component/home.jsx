@@ -73,17 +73,65 @@ export default Home;
 import React, { useState } from "react";
 
 //include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+//import rigoImage from "../../img/rigo-baby.jpg";
 
 //create your first component
 const Home = () => {
-	const [todos,setTodos]=
-	return(
+	const [todo, setTodo] = useState(false);
+	const [isX, setIsX] = useState(false);
+	const [nuevatarea, setNuevaTarea] = useState("");
+	const handleKeyEnter = (e) => {
+		let newTodo = [...todo, nuevatarea];
+		if (e.key === "Enter") {
+			setTodo(newTodo);
+			setNuevaTarea("");
+		}
+	};
+
+	const borrado = (indice) => {
+		const Ntodo = todo.filter((item, index) => indice !== index);
+		setTodo(Ntodo);
+	};
+
+	return (
 		<div>
-			
-        </div>
-    );
+			<div style={{ margintop: "12px" }}>
+				<h1 className="text-center">Lista de Tareas</h1>
+			</div>
+			<div>
+				<input
+					type="text"
+					placeholder="lista"
+					value={nuevatarea}
+					onChange={(e) => {
+						setNuevaTarea(e.target.value);
+					}}
+					onKeyDown={handleKeyEnter}></input>
+			</div>
+			<ul className="ist-group">
+				{todo.map((item, index) => (
+					<li
+						onMouseOver={() => setIsX(true)}
+						onMouseLeave={() => setIsX(false)}
+						key={index}
+						className="list-group-item"
+						style={{
+							display: "flex",
+							justifyContent: "space-between",
+						}}>
+						{item}
+						{isX && (
+							<button
+								className="btn-btn-daner"
+								onClick={() => borrado(index)}>
+								x
+							</button>
+						)}
+					</li>
+				))}
+			</ul>
+		</div>
+	);
 };
 
 export default Home;
-
