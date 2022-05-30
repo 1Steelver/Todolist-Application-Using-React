@@ -1,3 +1,74 @@
+import React, { useState } from "react";
+
+//include images into your bundle
+//import rigoImage from "../../img/rigo-baby.jpg";
+
+//create your first component
+const Home = () => {
+	const [todo, setTodo] = useState(false);
+	const [isShowX, setIsShowX] = useState(false);
+	const [tareanueva, setTareaNueva] = useState("");
+	const handleKeyEnter = (e) => {
+		let newTodo = [...todo, nuevatarea];
+		if (e.key === "Enter") {
+			setTodo(newTodo);
+			setTareaNueva("");
+		}
+	};
+
+	const borrado = (indice) => {
+		const Ntodo = todo.filter((item, index) => indice !== index);
+		setTodo(Ntodo);
+	};
+
+	return (
+		<div>
+			<div style={{ margintop: "12px" }}>
+				<h1 className="text-center">Lista de Tareas</h1>
+			</div>
+			<div>
+				<input
+					type="text"
+					placeholder="lista"
+					value={tareanueva}
+					onChange={(e) => {
+						setTareaNueva(e.target.value); //se trae el target y el value del evento(e),es decir e valor del input.
+					}}
+					onKeyDown={handleKeyEnter}></input> 
+			</div>
+			<ul className="ist-group">
+				{todo.map((item, index) => (
+					<li
+						onMouseOver={() => setIsShowX(true)} //si el mouse pase por aca...mostra la x
+						onMouseLeave={() => setIsShowX(false)} //cuando e mouse no este aca...no muestres la x
+						key={index}
+						className="list-group-item"
+						style={{                                 //estilos
+							display: "flex",
+							justifyContent: "space-between",
+						}}>
+						{item}
+						{isShowX && (
+							<button
+								className="btn-btn-daner"
+								onClick={() => borrado(index)}>
+								x
+							</button>
+						)}
+					</li>
+				))}
+			</ul>
+		</div>
+	);
+};
+
+export default Home;
+
+
+
+
+
+
 /*import React, { useState } from "react";
 
 //include images into your bundle
@@ -70,68 +141,3 @@ const Home = () => {
 
 export default Home;
 */
-import React, { useState } from "react";
-
-//include images into your bundle
-//import rigoImage from "../../img/rigo-baby.jpg";
-
-//create your first component
-const Home = () => {
-	const [todo, setTodo] = useState(false);
-	const [isX, setIsX] = useState(false);
-	const [nuevatarea, setNuevaTarea] = useState("");
-	const handleKeyEnter = (e) => {
-		let newTodo = [...todo, nuevatarea];
-		if (e.key === "Enter") {
-			setTodo(newTodo);
-			setNuevaTarea("");
-		}
-	};
-
-	const borrado = (indice) => {
-		const Ntodo = todo.filter((item, index) => indice !== index);
-		setTodo(Ntodo);
-	};
-
-	return (
-		<div>
-			<div style={{ margintop: "12px" }}>
-				<h1 className="text-center">Lista de Tareas</h1>
-			</div>
-			<div>
-				<input
-					type="text"
-					placeholder="lista"
-					value={nuevatarea}
-					onChange={(e) => {
-						setNuevaTarea(e.target.value);
-					}}
-					onKeyDown={handleKeyEnter}></input>
-			</div>
-			<ul className="ist-group">
-				{todo.map((item, index) => (
-					<li
-						onMouseOver={() => setIsX(true)}
-						onMouseLeave={() => setIsX(false)}
-						key={index}
-						className="list-group-item"
-						style={{
-							display: "flex",
-							justifyContent: "space-between",
-						}}>
-						{item}
-						{isX && (
-							<button
-								className="btn-btn-daner"
-								onClick={() => borrado(index)}>
-								x
-							</button>
-						)}
-					</li>
-				))}
-			</ul>
-		</div>
-	);
-};
-
-export default Home;
