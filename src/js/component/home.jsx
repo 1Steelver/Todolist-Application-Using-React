@@ -5,20 +5,20 @@ import React, { useState } from "react";
 
 //create your first component
 const Home = () => {
-	const [todo, setTodo] = useState(false);
+	const [tarea, setTarea] = useState(false);
 	const [isShowX, setIsShowX] = useState(false);
 	const [tareanueva, setTareaNueva] = useState("");
 	const handleKeyEnter = (e) => {
-		let newTodo = [...todo, nuevatarea];
+		let newTodo = [...tarea, nuevatarea];
 		if (e.key === "Enter") {
-			setTodo(newTodo);
+			setTarea(newTodo);
 			setTareaNueva("");
 		}
 	};
 
 	const borrado = (indice) => {
-		const Ntodo = todo.filter((item, index) => indice !== index);
-		setTodo(Ntodo);
+		const Ntodo = tarea.filter((item, index) => indice !== index);
+		setTarea(Ntodo);
 	};
 
 	return (
@@ -34,16 +34,16 @@ const Home = () => {
 					onChange={(e) => {
 						setTareaNueva(e.target.value); //se trae el target y el value del evento(e),es decir e valor del input.
 					}}
-					onKeyDown={handleKeyEnter}></input> 
+					onKeyDown={handleKeyEnter}></input>
 			</div>
 			<ul className="ist-group">
-				{todo.map((item, index) => (
+				{tarea.map((item, index) => (
 					<li
 						onMouseOver={() => setIsShowX(true)} //si el mouse pase por aca...mostra la x
 						onMouseLeave={() => setIsShowX(false)} //cuando e mouse no este aca...no muestres la x
 						key={index}
 						className="list-group-item"
-						style={{                                 //estilos
+						style={{
 							display: "flex",
 							justifyContent: "space-between",
 						}}>
@@ -63,11 +63,6 @@ const Home = () => {
 };
 
 export default Home;
-
-
-
-
-
 
 /*import React, { useState } from "react";
 
