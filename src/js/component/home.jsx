@@ -1,21 +1,16 @@
 import React, { useState } from "react";
 
 const Home = () => {
-	const [newItem, setNewItem] = useState("");
+	const [nuevaTarea, setNuevaTarea] = useState("");
 	const [items, setItems] = useState([]);
 	function agregar() {
-		if (!newItem) {
-			alert("Enter an item");
-			return;
-		}
 		const item = {
-			id: Math.floor(Math.random() * 1000),
-			value: newItem, //we get this from the input
+			id: Math.floor(Math.random() * 100),
+			value: nuevaTarea,
 		};
 
-		setItems((oldList) => [...oldList, item]);
-		setNewItem("");
-		console.log(items);
+		setItems((listaVieja) => [...listaVieja, item]);
+		setNuevaTarea("");
 	}
 
 	function borrado(id) {
@@ -24,101 +19,48 @@ const Home = () => {
 	}
 
 	return (
-		<center>
-			<h1>Todolist</h1>
-			<input
-				type="text"
-				placeholder="Agregar Tarea"
-				value={newItem}
-				onChange={(e) => setNewItem(e.target.value)}
-			/>
-			<button onClick={() => agregar()}>guardar</button>
-			<ul>
-				{items.map((item) => {
-					return (
-						<li key={item.id}>
-							{item.value}{" "}
-							<button onClick={() => borrado(item.id)}>
-								{" "}
-								X{" "}
-							</button>
-						</li>
-					);
-				})}
-			</ul>
-			<h2>Todolist</h2>
-	
-		</center>
-		
-	);
-};
-
-export default Home; /*import React, { useState } from "react";
-
-//include images into your bundle
-//import rigoImage from "../../img/rigo-baby.jpg";
-
-//create your first component
-const Home = () => {
-	const [tarea, setTarea] = useState(false);
-	const [tareanueva, setTareaNueva] = useState("");
-
-	const handleKeyEnter = (e) => {
-		let newTodo = [...tarea, nuevatarea];
-		if (e.key === "Enter") {
-			setTarea(newTodo);
-			setTareaNueva("");
-		}
-	};
-
-	const borrado = (id) => {
-		const Ntodo = tarea.filter((item) => item.id !== id);
-		setTarea(Ntodo);
-	};
-
-	return (
 		<div>
-			<div style={{ margintop: "12px" }}>
-				<h1 className="text-center">Lista de Tareas</h1>
+			<div class="card">
+				<h2 class="card-header">To_do List</h2>
+				<div class="card-body">
+					<h5 class="card-title">Guarda aca tu tarea</h5>
+					<input
+						type="text"
+						placeholder="Agregar Tarea"
+						value={nuevaTarea}
+						onChange={(e) => setNuevaTarea(e.target.value)}
+					/>
+
+					<button
+						type="button"
+						class="btn btn-success"
+						onClick={() => agregar()}>
+						Guardar
+					</button>
+					<ol>
+						{items.map((item) => {
+							return (
+								<li key={item.id}>
+									{item.value}{" "}
+									<button
+										type="button"
+										class="btn btn-danger"
+										onClick={() => borrado(item.id)}>
+										Borrar
+									</button>
+								</li>
+							);
+						})}
+					</ol>
+				</div>
 			</div>
-			<div>
-				<input
-					type="text"
-					placeholder="tarea"
-					value={tareanueva}
-					onChange={(e) => {
-						setTareaNueva(e.target.value); //se trae el target y el value del evento(e),es decir e valor del input.
-					}}
-					onKeyDown={handleKeyEnter}></input>
-			</div>
-			<ul className="ist-group">
-				{tarea.map((item, index) => (
-					<li
-						onMouseOver={() => setIsShowX(true)} //si el mouse pase por aca...mostra la x
-						onMouseLeave={() => setIsShowX(false)} //cuando e mouse no este aca...no muestres la x
-						key={index}
-						className="list-group-item"
-						style={{
-							display: "flex",
-							justifyContent: "space-between",
-						}}>
-						{item}
-						{isShowX && (
-							<button
-								className="btn-btn-daner"
-								onClick={() => borrado(index)}>
-								x
-							</button>
-						)}
-					</li>
-				))}
-			</ul>
 		</div>
 	);
 };
 
 export default Home;
-----------------------------------------------------------------------
+
+/*
 -------------import React, { useState } from "react";
 
 //include images into your bundle
