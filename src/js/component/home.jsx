@@ -1,13 +1,68 @@
 import React, { useState } from "react";
 
+const Home = () => {
+	const [newItem, setNewItem] = useState("");
+	const [items, setItems] = useState([]);
+	function agregar() {
+		if (!newItem) {
+			alert("Enter an item");
+			return;
+		}
+		const item = {
+			id: Math.floor(Math.random() * 1000),
+			value: newItem, //we get this from the input
+		};
+
+		setItems((oldList) => [...oldList, item]);
+		setNewItem("");
+		console.log(items);
+	}
+
+	function borrado(id) {
+		const listaNueva = items.filter((item) => item.id !== id);
+		setItems(listaNueva);
+	}
+
+	return (
+		<center>
+			<h1>Todolist</h1>
+			<input
+				type="text"
+				placeholder="Agregar Tarea"
+				value={newItem}
+				onChange={(e) => setNewItem(e.target.value)}
+			/>
+			<button onClick={() => agregar()}>guardar</button>
+			<ul>
+				{items.map((item) => {
+					return (
+						<li key={item.id}>
+							{item.value}{" "}
+							<button onClick={() => borrado(item.id)}>
+								{" "}
+								X{" "}
+							</button>
+						</li>
+					);
+				})}
+			</ul>
+			<h2>Todolist</h2>
+	
+		</center>
+		
+	);
+};
+
+export default Home; /*import React, { useState } from "react";
+
 //include images into your bundle
 //import rigoImage from "../../img/rigo-baby.jpg";
 
 //create your first component
 const Home = () => {
 	const [tarea, setTarea] = useState(false);
-	const [isShowX, setIsShowX] = useState(false);
 	const [tareanueva, setTareaNueva] = useState("");
+
 	const handleKeyEnter = (e) => {
 		let newTodo = [...tarea, nuevatarea];
 		if (e.key === "Enter") {
@@ -16,8 +71,8 @@ const Home = () => {
 		}
 	};
 
-	const borrado = (indice) => {
-		const Ntodo = tarea.filter((item, index) => indice !== index);
+	const borrado = (id) => {
+		const Ntodo = tarea.filter((item) => item.id !== id);
 		setTarea(Ntodo);
 	};
 
@@ -29,7 +84,7 @@ const Home = () => {
 			<div>
 				<input
 					type="text"
-					placeholder="lista"
+					placeholder="tarea"
 					value={tareanueva}
 					onChange={(e) => {
 						setTareaNueva(e.target.value); //se trae el target y el value del evento(e),es decir e valor del input.
@@ -63,8 +118,8 @@ const Home = () => {
 };
 
 export default Home;
-
-/*import React, { useState } from "react";
+----------------------------------------------------------------------
+-------------import React, { useState } from "react";
 
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
